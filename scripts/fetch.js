@@ -111,20 +111,28 @@ function selectThree(articles) {
 }
 
 /**
+ * Hard timeout wrapper
+ */
+function withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)
+    ),
+  ]);
+}
+
+/**
  * Extract full article content from URL
  */
 async function extractArticle(url) {
   try {
-    const article = await extract(url, {
-      timeout: 20000,
-    });
+    const article = await withTimeout(extract(url), 10000);
     if (article && article.content) {
-      // Strip HTML tags, keep plain text
       const text = article.content
         .replace(/<[^>]+>/g, '')
         .replace(/\s+/g, ' ')
         .trim();
-      // Limit to ~5000 chars for summary input
       return text.slice(0, 5000);
     }
   } catch (err) {
@@ -153,22 +161,25 @@ async function generateSummary(title, content, sourceName) {
   });
 
   try {
-    const response = await client.chat.completions.create({
-      model,
-      messages: [
-        {
-          role: 'system',
-          content:
-            '你是一位资深新闻编辑。请将以下英文报道用中文总结为3段：第一段用一句话说明核心事件或论点；第二段展开关键细节和背景；第三段点出这篇报道的独特价值或启发。总字数控制在200-300字。语言要简洁有力，不要翻译腔。',
-        },
-        {
-          role: 'user',
-          content: `来源: ${sourceName}\n标题: ${title}\n\n正文:\n${content}`,
-        },
-      ],
-      max_tokens: 800,
-      temperature: 0.3,
-    });
+    const response = await withTimeout(
+      client.chat.completions.create({
+        model,
+        messages: [
+          {
+            role: 'system',
+            content:
+              '你是一位资深新闻编辑。请将以下英文报道用中文总结为3段：第一段用一句话说明核心事件或论点；第二段展开关键细节和背景；第三段点出这篇报道的独特价值或启发。总字数控制在200-300字。语言要简洁有力，不要翻译腔。',
+          },
+          {
+            role: 'user',
+            content: `来源: ${sourceName}\n标题: ${title}\n\n正文:\n${content}`,
+          },
+        ],
+        max_tokens: 800,
+        temperature: 0.3,
+      }),
+      30000
+    );
 
     return response.choices[0]?.message?.content || null;
   } catch (err) {
@@ -264,5 +275,11 @@ async function main() {
 
   console.log(`\nDone! Saved ${output.length} articles for ${today}`);
 }
+
+// Global timeout: force exit after 5 minutes
+setTimeout(() => {
+  console.error('Global timeout reached (5min), force exiting');
+  process.exit(1);
+}, 5 * 60 * 1000);
 
 main().catch(console.error);
