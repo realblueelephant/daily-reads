@@ -75,21 +75,47 @@ function filterRecent(articles) {
 }
 
 /**
- * Select 3 articles ensuring source diversity
+ * Select 3 articles ensuring source diversity + investigative weight
+ * - At least 1 slot reserved for investigative/long-form sources
  * - No two articles from the same source
  * - Try to cover different regions
- * - Prefer longer descriptions (likely more substantive)
  */
 function selectThree(articles) {
-  // Shuffle for randomness
   const shuffled = articles.sort(() => Math.random() - 0.5);
+
+  // Score articles: investigative sources get a boost
+  const INVESTIGATIVE_SOURCES = new Set([
+    'propublica', 'guardian-longread', 'intercept', 'reuters',
+    'daily-maverick', 'the-wire',
+  ]);
+
+  const scored = shuffled.map((a) => ({
+    ...a,
+    score:
+      (INVESTIGATIVE_SOURCES.has(a.sourceId) ? 3 : 0) +
+      (a.categories?.includes('investigative') ? 2 : 0) +
+      (a.description?.length > 200 ? 1 : 0),
+  }));
+
+  // Sort by score descending (with some randomness preserved)
+  scored.sort((a, b) => b.score - a.score || Math.random() - 0.5);
 
   const selected = [];
   const usedSources = new Set();
   const usedRegions = new Set();
 
-  // First pass: maximize region diversity
-  for (const article of shuffled) {
+  // First pass: pick the highest-scored investigative piece
+  for (const article of scored) {
+    if (selected.length >= 1) break;
+    if (article.score >= 2) {
+      selected.push(article);
+      usedSources.add(article.sourceId);
+      usedRegions.add(article.region);
+    }
+  }
+
+  // Second pass: maximize region diversity
+  for (const article of scored) {
     if (selected.length >= 3) break;
     if (usedSources.has(article.sourceId)) continue;
     if (!usedRegions.has(article.region)) {
@@ -99,8 +125,8 @@ function selectThree(articles) {
     }
   }
 
-  // Second pass: fill remaining slots with different sources
-  for (const article of shuffled) {
+  // Third pass: fill remaining slots
+  for (const article of scored) {
     if (selected.length >= 3) break;
     if (usedSources.has(article.sourceId)) continue;
     selected.push(article);
