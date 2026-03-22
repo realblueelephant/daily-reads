@@ -1,0 +1,38 @@
+name: Daily Fetch
+
+on:
+  schedule:
+    # Run every day at 00:00 UTC (08:00 Beijing time)
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch and summarize articles
+        env:
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+          AI_BASE_URL: ${{ secrets.AI_BASE_URL }}
+          AI_MODEL: ${{ secrets.AI_MODEL }}
+        run: node scripts/fetch.js
+
+      - name: Commit and push
+        run: |
+          git config user.name "daily-reads-bot"
+          git config user.email "bot@daily-reads"
+          git add data/ public/data/
+          git diff --staged --quiet || git commit -m "update: $(date +%Y-%m-%d) daily articles"
+          git push

@@ -1,0 +1,139 @@
+{
+  "sources": [
+    {
+      "name": "The Guardian Long Read",
+      "id": "guardian-longread",
+      "url": "https://www.theguardian.com/news/series/the-long-read/rss",
+      "region": "europe",
+      "country": "UK",
+      "lang": "en",
+      "categories": ["investigative", "culture", "politics", "society"]
+    },
+    {
+      "name": "ProPublica",
+      "id": "propublica",
+      "url": "https://feeds.propublica.org/propublica/main",
+      "region": "north-america",
+      "country": "US",
+      "lang": "en",
+      "categories": ["investigative", "politics", "society"]
+    },
+    {
+      "name": "The Intercept",
+      "id": "intercept",
+      "url": "https://theintercept.com/feed/?rss",
+      "region": "north-america",
+      "country": "US",
+      "lang": "en",
+      "categories": ["investigative", "politics", "tech"]
+    },
+    {
+      "name": "Rest of World",
+      "id": "rest-of-world",
+      "url": "https://restofworld.org/feed/",
+      "region": "global-south",
+      "country": "Global",
+      "lang": "en",
+      "categories": ["tech", "society", "culture"]
+    },
+    {
+      "name": "Al Jazeera Features",
+      "id": "aljazeera",
+      "url": "https://www.aljazeera.com/xml/rss/all.xml",
+      "region": "middle-east",
+      "country": "Qatar",
+      "lang": "en",
+      "categories": ["politics", "society", "international"]
+    },
+    {
+      "name": "The Wire",
+      "id": "the-wire",
+      "url": "https://thewire.in/feed/rss",
+      "region": "south-asia",
+      "country": "India",
+      "lang": "en",
+      "categories": ["politics", "society", "culture"]
+    },
+    {
+      "name": "Daily Maverick",
+      "id": "daily-maverick",
+      "url": "https://www.dailymaverick.co.za/feed/",
+      "region": "africa",
+      "country": "South Africa",
+      "lang": "en",
+      "categories": ["politics", "society", "investigative"]
+    },
+    {
+      "name": "Global Voices",
+      "id": "global-voices",
+      "url": "https://globalvoices.org/feed/",
+      "region": "global",
+      "country": "Global",
+      "lang": "en",
+      "categories": ["society", "culture", "politics"]
+    },
+    {
+      "name": "Aeon",
+      "id": "aeon",
+      "url": "https://aeon.co/feed.rss",
+      "region": "europe",
+      "country": "UK",
+      "lang": "en",
+      "categories": ["culture", "philosophy", "science"]
+    },
+    {
+      "name": "BBC News In Depth",
+      "id": "bbc-indepth",
+      "url": "https://feeds.bbci.co.uk/news/rss.xml",
+      "region": "europe",
+      "country": "UK",
+      "lang": "en",
+      "categories": ["politics", "international", "society"]
+    },
+    {
+      "name": "Rappler",
+      "id": "rappler",
+      "url": "https://www.rappler.com/feed/",
+      "region": "southeast-asia",
+      "country": "Philippines",
+      "lang": "en",
+      "categories": ["politics", "society", "tech"]
+    },
+    {
+      "name": "Africa Is a Country",
+      "id": "africa-is-a-country",
+      "url": "https://africasacountry.com/feed",
+      "region": "africa",
+      "country": "Global/Africa",
+      "lang": "en",
+      "categories": ["culture", "politics", "society"]
+    },
+    {
+      "name": "The Conversation",
+      "id": "the-conversation",
+      "url": "https://theconversation.com/articles.atom",
+      "region": "global",
+      "country": "Global",
+      "lang": "en",
+      "categories": ["science", "society", "culture", "politics"]
+    },
+    {
+      "name": "New Internationalist",
+      "id": "new-internationalist",
+      "url": "https://newint.org/blog/feed",
+      "region": "europe",
+      "country": "UK",
+      "lang": "en",
+      "categories": ["politics", "society", "international"]
+    },
+    {
+      "name": "Reuters",
+      "id": "reuters",
+      "url": "https://www.reuters.com/arc/outboundfeeds/newsletter-rss/investigates/",
+      "region": "global",
+      "country": "Global",
+      "lang": "en",
+      "categories": ["investigative", "politics", "international"]
+    }
+  ]
+}

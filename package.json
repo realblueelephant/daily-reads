@@ -1,0 +1,15 @@
+{
+  "name": "daily-reads",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "每日三篇 - 全球优质长报道，中文摘要，每日推送",
+  "scripts": {
+    "fetch": "node scripts/fetch.js",
+    "dev": "npx serve public"
+  },
+  "dependencies": {
+    "rss-parser": "^3.13.0",
+    "@extractus/article-extractor": "^8.0.10",
+    "openai": "^4.52.0"
+  }
+}
