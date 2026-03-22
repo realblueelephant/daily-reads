@@ -280,6 +280,11 @@ async function main() {
 setTimeout(() => {
   console.error('Global timeout reached (5min), force exiting');
   process.exit(1);
-}, 5 * 60 * 1000);
+}, 5 * 60 * 1000).unref();
 
-main().catch(console.error);
+main()
+  .then(() => process.exit(0))
+  .catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
