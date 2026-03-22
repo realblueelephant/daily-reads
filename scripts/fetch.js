@@ -75,15 +75,14 @@ function filterRecent(articles) {
 }
 
 /**
- * Select 3 articles ensuring source diversity + investigative weight
- * - At least 1 slot reserved for investigative/long-form sources
+ * Select 7 articles ensuring source diversity + investigative weight
+ * - At least 2 slots for investigative/long-form sources
  * - No two articles from the same source
- * - Try to cover different regions
+ * - Maximize region diversity
  */
-function selectThree(articles) {
+function selectArticles(articles) {
   const shuffled = articles.sort(() => Math.random() - 0.5);
 
-  // Score articles: investigative sources get a boost
   const INVESTIGATIVE_SOURCES = new Set([
     'propublica', 'guardian-longread', 'intercept', 'reuters',
     'daily-maverick', 'the-wire',
@@ -97,16 +96,15 @@ function selectThree(articles) {
       (a.description?.length > 200 ? 1 : 0),
   }));
 
-  // Sort by score descending (with some randomness preserved)
   scored.sort((a, b) => b.score - a.score || Math.random() - 0.5);
 
   const selected = [];
   const usedSources = new Set();
   const usedRegions = new Set();
 
-  // First pass: pick the highest-scored investigative piece
+  // First pass: pick top 2 investigative pieces
   for (const article of scored) {
-    if (selected.length >= 1) break;
+    if (selected.length >= 2) break;
     if (article.score >= 2) {
       selected.push(article);
       usedSources.add(article.sourceId);
@@ -116,7 +114,7 @@ function selectThree(articles) {
 
   // Second pass: maximize region diversity
   for (const article of scored) {
-    if (selected.length >= 3) break;
+    if (selected.length >= 7) break;
     if (usedSources.has(article.sourceId)) continue;
     if (!usedRegions.has(article.region)) {
       selected.push(article);
@@ -127,7 +125,7 @@ function selectThree(articles) {
 
   // Third pass: fill remaining slots
   for (const article of scored) {
-    if (selected.length >= 3) break;
+    if (selected.length >= 7) break;
     if (usedSources.has(article.sourceId)) continue;
     selected.push(article);
     usedSources.add(article.sourceId);
@@ -229,7 +227,7 @@ async function main() {
   console.log(`${recent.length} recent articles after filtering`);
 
   // 3. Select 3
-  const selected = selectThree(recent);
+  const selected = selectArticles(recent);
   console.log(
     `Selected: ${selected.map((a) => `[${a.sourceName}] ${a.title}`).join('\n          ')}`
   );
