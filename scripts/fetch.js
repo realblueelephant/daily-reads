@@ -219,6 +219,14 @@ async function main() {
   console.log('=== Daily Reads - Fetching ===');
   console.log(new Date().toISOString());
 
+  // Skip if today's data already exists
+  const today = new Date().toISOString().slice(0, 10);
+  const todayFile = join(__dirname, '..', 'data', `${today}.json`);
+  if (existsSync(todayFile)) {
+    console.log(`Today's data (${today}) already exists, skipping.`);
+    return;
+  }
+
   // 1. Fetch all feeds
   const allArticles = await fetchAllFeeds();
 
@@ -265,8 +273,6 @@ async function main() {
   // 5. Write output
   const dataDir = join(__dirname, '..', 'data');
   if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
-
-  const today = new Date().toISOString().slice(0, 10);
   const outputData = {
     date: today,
     articles: output,

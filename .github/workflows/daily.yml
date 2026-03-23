@@ -2,8 +2,9 @@ name: Daily Fetch
 
 on:
   schedule:
-    # Run every day at 00:00 UTC (08:00 Beijing time)
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *'   # 08:00 Beijing
+    - cron: '30 0 * * *'  # 08:30 Beijing
+    - cron: '0 1 * * *'   # 09:00 Beijing
   workflow_dispatch: # Allow manual trigger
 
 permissions:
