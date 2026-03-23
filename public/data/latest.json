@@ -1,18 +1,6 @@
 {
-  "date": "2026-03-22",
+  "date": "2026-03-23",
   "articles": [
-    {
-      "title": "“Liberate Their Bodies From Their Souls”: The Lies That Sell the Iran War",
-      "link": "https://theintercept.com/2026/03/20/podcast-war-beirut-lebanon-iran/",
-      "sourceName": "The Intercept",
-      "sourceId": "intercept",
-      "region": "north-america",
-      "country": "US",
-      "pubDate": "Fri, 20 Mar 2026 10:00:00 +0000",
-      "description": "Ali Gharib speaks to Afeef Nessouli about the latest strikes on Lebanon and peace strategist Sanam Naraghi-Anderlini on the U.S.–Israel assault on Iran.\nThe post “Liberate Their Bodies From Their Souls”: The Lies That Sell the Iran War appeared first on The Intercept.",
-      "summary": "美以对伊朗的战争，正以“解放”为名，行破坏之实，导致地区人道灾难并威胁全球经济。\n\n这场战争已进入第三周，造成伊朗至少1400人死亡、1.8万人受伤，民用基础设施遭严重破坏。作为回应，伊朗袭击了以色列及美国在当地的基地。战火更蔓延至黎巴嫩，以色列空袭已导致近千人死亡、超百万人流离失所，甚至深入贝鲁特市中心摧毁居民楼。分析指出，战争的深层逻辑并非真正推动民主，而是旨在通过制造“失败国家”来削弱对手。正如一位和平战略家所揭示的，2003年伊拉克战争导致的混乱，在某些地区国家看来恰恰是“成功”的，因为它消除了一个潜在的民主模式挑战者。\n\n报道的独特价值在于，它尖锐地戳破了“人道主义干预”的虚伪叙事，揭示了战争宣传如何将赤裸裸的地缘政治算计包装成解放使命。正如一位编辑的质问：这种通过大规模侵犯人权来实现的“干预”，究竟是在“解放”人民，还是在将他们的肉体与灵魂剥离？这迫使人们思考，谁在真正为这些“解放炸弹”付出代价。",
-      "fetchedAt": "2026-03-22T12:34:49.011Z"
-    },
     {
       "title": "Pentagon Implores Civilian Workers to Join ICE “Volunteer Force”",
       "link": "https://theintercept.com/2026/03/20/pentagon-ice-dhs-cbp-civilian-volunteer-force/",
@@ -22,8 +10,20 @@
       "country": "US",
       "pubDate": "Fri, 20 Mar 2026 18:47:17 +0000",
       "description": "The Defense Department is recruiting on behalf of DHS while the latter faces public backlash and a continued lack of government funding.\nThe post Pentagon Implores Civilian Workers to Join ICE “Volunteer Force” appeared first on The Intercept.",
-      "summary": "五角大楼正呼吁其文职雇员以志愿者身份支援国土安全部，以应对该部门因预算中断及强硬移民执法手段引发的公关危机。  \n\n这封由国防部人事与战备副部长办公室发出的邮件，将移民执法类比为扑救山火等灾难响应，并详细列出志愿者将协助ICE和CBP制定行动方案、提供后勤支持及管理执法活动。此举背景是ICE和CBP近期因执法行动导致平民死亡引发舆论反弹，且国土安全部已因预算僵局陷入第二个月的资金短缺状态。  \n\n报道的独特价值在于揭示国防系统对移民执法的深度介入：这已是去年8月以来第二次类似动员，且志愿者年薪范围高达2.5万至19万美元，凸显该行动已演变为半制度化合作。同时，报道通过对比军方声明与移民执法的现实冲突，折射出美国国家安全资源向边境议题倾斜引发的政治争议。",
-      "fetchedAt": "2026-03-22T12:34:56.663Z"
+      "summary": "五角大楼公开呼吁文职雇员\"志愿\"支援因预算停摆和执法争议而陷入困境的国土安全部。  \n\n这封由国防部人事与战备副部长办公室发出的邮件，将移民执法类比为扑救山火等灾难响应，动员文职人员协助移民海关执法局（ICE）和海关边境保护局（CBP）开展行动规划、后勤支持及执法管理。该计划实为去年八月志愿行动的延续，目前宣称已有超900人申请，但实际部署人数未明。值得关注的是，ICE和CBP近期因执法行动导致平民死亡引发强烈舆论反弹，而国土安全部已因预算僵局陷入第二个月的资金断供。  \n\n报道通过交叉比对内部邮件、政府新闻稿及历史时间线，揭示出两大关键：一是五角大楼通过\"志愿服务\"机制持续深度介入移民执法，模糊了国防与国内执法的界限；二是志愿岗位年薪跨度达2.5万至19万美元，暴露出该计划实为变相的人员补充方案，折射出在政府停摆背景下，行政机构正以非常规手段维持争议性政策的运转。",
+      "fetchedAt": "2026-03-23T02:20:31.417Z"
+    },
+    {
+      "title": "More Than 1 Million People in Lebanon Have Been Displaced. These Are Their Stories.",
+      "link": "https://theintercept.com/2026/03/22/beirut-lebanon-displaced-israel-iran-war/",
+      "sourceName": "The Intercept",
+      "sourceId": "intercept",
+      "region": "north-america",
+      "country": "US",
+      "pubDate": "Sun, 22 Mar 2026 10:11:00 +0000",
+      "description": "Israel’s military strikes in Lebanon sparked a humanitarian crisis, driving thousands to the streets of Beirut.\nThe post More Than 1 Million People in Lebanon Have Been Displaced. These Are Their Stories. appeared first on The Intercept.",
+      "summary": "黎巴嫩已有超过百万人因战火流离失所，他们的生存困境揭示了这场被忽视的人道危机。\n\n在贝鲁特市中心，45岁的法蒂玛带着两个幼子和坐轮椅的70岁母亲，蜷缩在巨型新月雕像下。他们原为躲避叙利亚内战迁居至此，如今又因以色列对南部郊区的轰炸再次逃亡。法蒂玛描述孩子们在寒夜中挨饿受冻，而当局未提供任何援助。16岁的卡里姆一家同样露宿街头，因母亲患有心理疾病无法忍受拥挤的临时收容所。这些家庭共同面临无处可去的绝境——即便想返回家园，持续升级的空袭已让南部郊区沦为危险地带。联合国数据显示，黎巴嫩近五分之一人口被迫迁移，空袭已造成包括118名儿童在内的逾千人死亡。\n\n报道通过街头个体的真实叙事，将宏观统计转化为具象的人道灾难。当国际视线聚焦加沙时，黎巴嫩境内百万流离者同样在轰炸、严寒与饥饿中挣扎。这些曾被战争反复碾轧的普通人，如今连临时庇护所都难以获得，暴露出地区冲突中平民保护的系统性缺失。他们的存在本身，即是对战争逻辑最沉默的控诉。",
+      "fetchedAt": "2026-03-23T02:20:40.672Z"
     },
     {
       "title": "‘The children are not safe here’: the Nigerian couple fighting infanticide – podcast",
@@ -34,8 +34,20 @@
       "country": "UK",
       "pubDate": "Fri, 20 Mar 2026 05:00:09 GMT",
       "description": "In a few isolated communities in central Nigeria, some babies are believed to be bad omens. Olusola and Chinwe Stevens run a thriving home for babies at risk. But what happens when the families want them back?\nBy Adaobi Tricia Nwaubani. Read by Nneka Okoye\n Continue reading...",
-      "summary": "尼日利亚一对夫妇在传统迷信盛行的社区中，为被视作\"凶兆\"的婴儿建立庇护所，直面传统观念与现代伦理的冲突。\n\n在尼日利亚中部某些封闭社区，双胞胎、长牙新生儿等特殊婴儿常被认定为\"巫童\"遭遗弃甚至杀害。奥卢索拉和钦韦夫妇创办的庇护所十年间拯救了数百名婴儿，提供医疗与教育。但随着孩子成长，原生家庭时而突然要求归还孩子，引发监护权、文化认同与儿童权益的多重矛盾。当地传统领袖与政府机构对此态度暧昧，使庇护工作常陷法律与道德的两难境地。\n\n这则报道的价值在于揭示全球化时代仍存在的文明断层：当现代儿童保护理念遭遇深植民间的万物有灵信仰，简单的拯救行动背后是文化基因层面的艰难对话。夫妇俩的实践表明，真正的保护需要建立社区内部的理解桥梁，而非单方面的文明输出。",
-      "fetchedAt": "2026-03-22T12:35:04.790Z"
+      "summary": "尼日利亚一对夫妇在传统迷信盛行的社区中，为被视作\"凶兆\"的婴儿建立庇护所，直面\"杀婴\"陋习。\n\n在尼日利亚中部某些封闭部落，双胞胎、长牙新生儿等特殊婴儿常被认定为灾祸象征。奥卢索拉和钦韦夫妇建立的\"希望之家\"十年间拯救了数百名婴儿，却面临两难困境：当原生家庭在压力下索回孩子时，这些孩子可能再度陷入危险。更复杂的是，部分家庭因贫困将婴儿遗弃后，待孩子获得国际收养资格时又前来争夺监护权。\n\n这篇报道罕见地呈现了现代法律与传统信仰的持久拉锯，揭示慈善组织在文化敏感地带工作的伦理困境——拯救行为本身可能催生新的剥削链条，而真正的解决方案需要从社区内部的文化对话开始。",
+      "fetchedAt": "2026-03-23T02:20:48.182Z"
+    },
+    {
+      "title": "How Bad Bunny brought the issue of Puerto Rico’s power grid into world view",
+      "link": "https://globalvoices.org/2026/03/22/how-bad-bunny-brought-the-issue-of-puerto-ricos-power-grid-into-world-view/",
+      "sourceName": "Global Voices",
+      "sourceId": "global-voices",
+      "region": "global",
+      "country": "Global",
+      "pubDate": "Sun, 22 Mar 2026 06:30:47 +0000",
+      "description": "Puerto Rico’s electricity system has faced repeated crises since 2017’s Hurricane Maria, which destroyed much of the grid and triggered the longest blackout in modern U.S. history; outages remain routine.",
+      "summary": "波多黎各歌手坏痞兔在超级碗中场秀中，通过舞蹈将电力基础设施危机转化为全球瞩目的艺术表达。\n\n演出中，舞者装扮成电力工人攀爬电线杆，配合歌曲《大停电》闪烁的电火花，直观呈现了波多黎各电网的脆弱现状。自2017年飓风玛利亚摧毁岛上电网以来，当地居民仍常年忍受停电困扰——2024年平均停电超70小时，电费高达美国本土两倍。集中式化石燃料发电系统老化脆弱，私有化改革成效缓慢，债务与气候风险叠加使电网改造举步维艰。\n\n这场表演的价值在于超越气候议题的常规叙事，用极具感染力的视觉语言，让全球观众瞬间共情能源基础设施崩溃的民生之痛。当学术报告与政策辩论难以破圈时，流行文化以艺术符号完成了一次穿透性的公共传播，将边缘化地区的生存困境推入世界视野。",
+      "fetchedAt": "2026-03-23T02:20:56.279Z"
     },
     {
       "title": "Philippines allows temporary use of dirtier fuel amid Middle East crisis",
@@ -46,8 +58,8 @@
       "country": "Philippines",
       "pubDate": "Sun, 22 Mar 2026 18:45:26 +0800",
       "description": "The Department of Energy says only vehicles from model year 2015 and earlier, traditional jeepneys, power plants and generators, and the marine and shipping sectors would be allowed to use Euro-II compliant petroleum products",
-      "summary": "菲律宾为应对中东危机冲击，临时允许使用低标准燃油以保障供应。\n\n此次放宽的燃油标准为欧II，仅限2015年前出厂车辆、传统吉普尼、发电设备及航运领域使用，并与现行欧IV标准燃料实施储运销全链条隔离。该国自2016年起推行含硫量50ppm的欧IV标准，而欧II燃料含硫量高达500ppm。近期因美以伊冲突导致全球油价飙升，菲律宾柴油价格翻倍，已引发多地吉普尼司机抗议。政府同步采取缩短工时、发放燃油补贴、授权总统调整燃油税等措施，并正与多国协商燃料供应，计划五年来首次进口俄罗斯石油。\n\n报道揭示了发展中国家在能源安全与环保目标间的现实抉择：当外部危机冲击供应链时，政策天平可能向保障基本经济运转倾斜，但需通过严格限制使用范围与过渡期限，控制环境代价。",
-      "fetchedAt": "2026-03-22T12:35:11.915Z"
+      "summary": "菲律宾为应对中东危机冲击，临时批准使用污染更严重的廉价燃料以保障供应。\n\n该国能源部规定，仅允许2015年及以前出厂车辆、传统吉普尼、发电机组以及航运业使用符合欧II标准的石油产品，并要求供应商在储运销售环节与欧IV标准燃料严格隔离。此举背景是中东冲突导致全球油价飙升，引发本土柴油价格翻倍，数千吉普尼司机上周已发起全国抗议。菲律宾正通过缩短工作周、提供燃油补贴、协商多国燃料供应等多重措施缓解危机，并将五年来首次进口俄罗斯石油。\n\n报道揭示了发展中国家在能源安全与环保目标间的现实抉择：当地缘危机冲击供应链时，维持基本经济运行可能迫使环保标准阶段性让步，凸显全球能源体系脆弱性背景下各国应急机制的局限性。",
+      "fetchedAt": "2026-03-23T02:21:02.786Z"
     },
     {
       "title": "Senegal&#8217;s theater of morality",
@@ -58,33 +70,21 @@
       "country": "Global/Africa",
       "pubDate": "2026-03-20T12:00:55.000Z",
       "description": "As debt mounts and police violence on campuses goes unanswered, Senegal’s government is targeting its queer citizens.\n\"Theatre in a Box,\" by Senegalese artist Amadou Makhtar Mbaye. Photo by Ji-Elle via Wikimedia Commons Public Domain.\nLet us be precise about what happened on March 11, 2026.\nSenegal’s National Assembly voted to raise the maximum prison sentence for same-sex relations to ten years and to criminalize the “promotion” or “apology” of homosexuality. The usual commentators reached for ",
-      "summary": "2026年3月，塞内加尔通过严苛反同性恋法案，将最高刑期提至十年并禁止相关宣传。这表面是道德立法，实则是债务危机下的政治表演。\n\n法案通过次日，政府刚向国际债权人支付4.71亿美元避免违约。公共债务被系统性造假：2023年实际债务占GDP近99.7%，2024年预计达119-132%，130亿美元债务被隐瞒。IMF冻结18亿美元信贷，外债偿还消耗超50%政府收入，19个机构面临削减，学生奖学金拖欠。法案通过前三周，医学生阿卜杜拉耶·巴因奖学金抗议遭警察暴力身亡，这是25年来第六起“官方意外”。同日，12名男性因“违反自然行为”被捕。\n\n报道揭示三个关键：第一，法案由美国马萨诸塞州基督教民族主义组织MassResistance幕后策划，是特朗普重返白宫后该类组织在非洲首次成功干预；第二，政府用零成本的道德立法转移视线，利用既有父权结构将酷儿群体建构为合法管制对象；第三，抗议学生与酷儿公民成为同一压迫逻辑的牺牲品——当国家无力兑现物质承诺，便转向道德规训。这不仅是非洲故事，更是全球威权民粹主义的标准化剧本：债务危机成为系统性压迫的加速器，而弱势群体的身体成为政治失败的遮羞布。",
-      "fetchedAt": "2026-03-22T12:35:22.450Z"
+      "summary": "2026年3月，塞内加尔通过严苛反同性恋法案，将最高刑期提至十年并禁止相关宣传。这表面是道德立法，实则是债务危机下的政治操弄。\n\n法案通过次日，政府刚向国际债权人支付4.71亿美元避免违约。公共债务被系统性造假：2023年实际债务占GDP近99.7%，2024年预计达132%，130亿美元债务被隐瞒。IMF冻结18亿美元信贷，外债偿还消耗超50%财政收入，19个机构面临削减，奖学金持续拖欠。当国家无力兑现物质承诺，便转向零成本的道德立法——既动员宗教权威与民族情绪，又规避结构性改革压力。这种策略依托既有父权架构：酷儿群体早已被建构为合法规训对象，经济危机只是加剧了这一逻辑。\n\n报道揭示跨国保守势力联动：推动立法的本土组织\"And Samm Jikko Yi\"在2024年联系美国基督教民族主义团体MassResistance，这是特朗普重返白宫后美方团体首次在非洲成功助推反酷儿立法。与此同时，特朗普政府与塞内加尔签署的健康协议刻意排除最受影响群体。法案通过前三周，警方以\"反自然行为\"逮捕至少37名男男性行为者；而奖学金抗议中遭警察暴力致死的学生阿卜杜拉耶·巴，已是25年来第六位\"官方意外\"死亡的学生。惩罚特定群体成为转移视线的剧场——当国家无法回答\"为何拖欠奖学金\"\"谁为校园死亡负责\"，便通过惩戒弱势群体制造道德幻象。",
+      "fetchedAt": "2026-03-23T02:21:14.726Z"
     },
     {
-      "title": "View from The Hill: One Nation’s performance in SA will send shivers down Angus Taylor’s spine for Farrer campaign",
-      "link": "https://theconversation.com/view-from-the-hill-one-nations-performance-in-sa-will-send-shivers-down-angus-taylors-spine-for-farrer-campaign-278787",
-      "sourceName": "The Conversation",
-      "sourceId": "the-conversation",
-      "region": "global",
-      "country": "Global",
-      "pubDate": "2026-03-22T07:41:38.000Z",
-      "description": "As he looks to his own coming wrestle with One Nation in the May 9 Farrer byelection, Angus Taylor can only take from Saturday’s South Australian result a sense of deep trepidation.  \nOne Nation drove a front-end loader through the conservative vote in the state election, slicing it in half and gathering up  a higher primary vote than the Liberals. It is likely to do something similar in the federal New South Wales regional  seat. \nOn early indications, the frontrunners in Farrer are One Nation ",
-      "summary": "单一民族党在南澳选举中重创保守派票仓，令联邦议员安格斯·泰勒对即将到来的法勒选区补选深感不安。  \n\n该党在南澳不仅分流了近半保守票源，初选得票率甚至超过自由党，其联邦候选人法利与独立候选人米尔索普目前领先于仓促参选的自由党候选人。自由党面临两难抉择：若无法保住这个保守派传统席位，究竟该在偏好投票中支持立场更接近的独立候选人，还是为阻止极右翼势力扩张而支持单一民族党？党内当前明显更担忧右翼选票流失。  \n\n报道的独特价值在于揭示单一民族党作为\" grievance and disruption \"（不满与破坏）政党的本质——它无需赢得多数席位，仅凭撕裂保守阵营就能改变政治格局。这种破坏性策略正迫使自由党在短期选举利益与长期政治健康之间做出危险权衡，折射出澳大利亚保守阵营面临的结构性危机。",
-      "fetchedAt": "2026-03-22T12:35:30.247Z"
-    },
-    {
-      "title": "The stark divide in the UAE and India war info systems",
-      "link": "https://restofworld.org/2026/the-stark-divide-in-the-uae-and-india-war-info-systems/?utm_source=rss&utm_medium=rss&utm_campaign=feeds",
-      "sourceName": "Rest of World",
-      "sourceId": "rest-of-world",
-      "region": "global-south",
-      "country": "Global",
-      "pubDate": "Fri, 20 Mar 2026 17:52:55 +0000",
-      "description": "My experience of the tech platforms, media content, and official messaging of the war in two cities.",
-      "summary": "阿联酋与印度在战时信息管理上呈现鲜明对比。  \n\n当伊朗导弹来袭时，阿联酋通过国家应急管理系统向境内所有手机强制发送多语种警报，官方在社交媒体持续更新拦截数据（截至3月15日共拦截298枚弹道导弹），并严惩传播未经核实影像的行为——最高罚款约5.5万美元。政府甚至细化警报设计：夜间改用柔和提示音避免惊扰儿童。这种体系化管控使信息环境高度有序，民众仅用WhatsApp报平安而非获取新闻。  \n\n而在印度，电视台循环播放来自巴林的两天前爆炸画面，占星师在节目中分析伊朗星象，计算机合成的战争场景与主持人数字影像叠加传播。尽管政府以\"不当煽情\"为由暂停电视评级四周，但未经核实的灾难视频仍在WhatsApp疯狂转发，导致海外亲属误判阿联酋陷入火海。同一加密软件在两国演化出截然不同的信息生态：前者成为联络工具，后者沦为谣言温床。  \n\n报道通过亲历视角揭示：技术平台的中立性会被社会机制重塑。阿联酋多年演练的危机响应体系与严厉惩戒形成信息\"硬约束\"，印度则展现评级驱动下的媒体失序与数字谣言裂变。这不仅是治理能力差异，更触及现代战争中比物理防线更脆弱的认知防线如何构筑的根本命题。",
-      "fetchedAt": "2026-03-22T12:35:40.795Z"
+      "title": "Asian stock markets plunge amid Trump’s ultimatum on Iran",
+      "link": "https://www.aljazeera.com/economy/2026/3/23/asian-stock-markets-plunge-amid-trumps-ultimatum-on-iran?traffic_source=rss",
+      "sourceName": "Al Jazeera Features",
+      "sourceId": "aljazeera",
+      "region": "middle-east",
+      "country": "Qatar",
+      "pubDate": "Mon, 23 Mar 2026 01:56:28 +0000",
+      "description": "Key indexes in Japan, South Korea and Hong Kong tumble as Iran threatens attacks on energy infrastructure across region.",
+      "summary": "特朗普对伊朗发出最后通牒，引发亚太股市集体暴跌。  \n\n日本日经225指数和韩国KOSPI指数周一早盘分别重挫4%和4.5%，香港恒生指数下跌约2%，澳大利亚及新西兰股市也普遍下挫。此次震荡直接源于特朗普在社交媒体发出的48小时威胁——要求伊朗停止封锁霍尔木兹海峡，否则将摧毁其能源设施。该海峡承担全球约五分之一的油气运输，伊朗已警告若美国行动将完全关闭海峡并攻击地区基础设施，国际油价随之剧烈波动，布伦特原油一度突破每桶114美元。  \n\n报道通过精确的时间线与数据对比，揭示了地缘政治威胁如何通过能源通道迅速传导至全球金融市场。特别指出中美以战争持续一月已使油价上涨超50%，而海峡若持续关闭可能推动油价飙升至150-200美元，这凸显了单一关键物流节点对全球化经济的脆弱性影响。文中穿插特朗普政府矛盾表态与盟友通话细节，进一步呈现危机中各方策略的不确定性。",
+      "fetchedAt": "2026-03-23T02:21:22.831Z"
     }
   ],
-  "generatedAt": "2026-03-22T12:35:40.795Z"
+  "generatedAt": "2026-03-23T02:21:22.831Z"
 }
