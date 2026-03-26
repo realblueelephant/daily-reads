@@ -2,15 +2,17 @@ name: Daily Fetch
 
 on:
   schedule:
-    - cron: '0 0 * * *'   # 08:00 Beijing
-    - cron: '30 0 * * *'  # 08:30 Beijing
-    - cron: '0 1 * * *'   # 09:00 Beijing
-  workflow_dispatch: # Allow manual trigger
+    - cron: '3 1 * * *'   # 09:03 Beijing time
+  workflow_dispatch:
 
 permissions:
   contents: write
   pages: write
   id-token: write
+
+concurrency:
+  group: daily-fetch
+  cancel-in-progress: false
 
 jobs:
   fetch:

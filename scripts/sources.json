@@ -7,6 +7,7 @@
       "region": "europe",
       "country": "UK",
       "lang": "en",
+      "longform": true,
       "categories": ["investigative", "culture", "politics", "society"]
     },
     {
@@ -16,6 +17,7 @@
       "region": "north-america",
       "country": "US",
       "lang": "en",
+      "longform": false,
       "categories": ["investigative", "politics", "society"]
     },
     {
@@ -25,6 +27,7 @@
       "region": "north-america",
       "country": "US",
       "lang": "en",
+      "longform": false,
       "categories": ["investigative", "politics", "tech"]
     },
     {
@@ -34,15 +37,17 @@
       "region": "global-south",
       "country": "Global",
       "lang": "en",
+      "longform": false,
       "categories": ["tech", "society", "culture"]
     },
     {
-      "name": "Al Jazeera Features",
+      "name": "Al Jazeera",
       "id": "aljazeera",
       "url": "https://www.aljazeera.com/xml/rss/all.xml",
       "region": "middle-east",
       "country": "Qatar",
       "lang": "en",
+      "longform": false,
       "categories": ["politics", "society", "international"]
     },
     {
@@ -52,6 +57,7 @@
       "region": "south-asia",
       "country": "India",
       "lang": "en",
+      "longform": false,
       "categories": ["politics", "society", "culture"]
     },
     {
@@ -61,6 +67,7 @@
       "region": "africa",
       "country": "South Africa",
       "lang": "en",
+      "longform": false,
       "categories": ["politics", "society", "investigative"]
     },
     {
@@ -70,6 +77,7 @@
       "region": "global",
       "country": "Global",
       "lang": "en",
+      "longform": false,
       "categories": ["society", "culture", "politics"]
     },
     {
@@ -79,15 +87,17 @@
       "region": "europe",
       "country": "UK",
       "lang": "en",
+      "longform": true,
       "categories": ["culture", "philosophy", "science"]
     },
     {
-      "name": "BBC News In Depth",
+      "name": "BBC News",
       "id": "bbc-indepth",
       "url": "https://feeds.bbci.co.uk/news/rss.xml",
       "region": "europe",
       "country": "UK",
       "lang": "en",
+      "longform": false,
       "categories": ["politics", "international", "society"]
     },
     {
@@ -97,6 +107,7 @@
       "region": "southeast-asia",
       "country": "Philippines",
       "lang": "en",
+      "longform": false,
       "categories": ["politics", "society", "tech"]
     },
     {
@@ -106,6 +117,7 @@
       "region": "africa",
       "country": "Global/Africa",
       "lang": "en",
+      "longform": false,
       "categories": ["culture", "politics", "society"]
     },
     {
@@ -115,6 +127,7 @@
       "region": "global",
       "country": "Global",
       "lang": "en",
+      "longform": false,
       "categories": ["science", "society", "culture", "politics"]
     },
     {
@@ -124,16 +137,69 @@
       "region": "europe",
       "country": "UK",
       "lang": "en",
+      "longform": false,
       "categories": ["politics", "society", "international"]
     },
     {
-      "name": "Reuters",
+      "name": "Reuters Investigates",
       "id": "reuters",
       "url": "https://www.reuters.com/arc/outboundfeeds/newsletter-rss/investigates/",
       "region": "global",
       "country": "Global",
       "lang": "en",
+      "longform": false,
       "categories": ["investigative", "politics", "international"]
+    },
+    {
+      "name": "The New Yorker",
+      "id": "new-yorker",
+      "url": "https://www.newyorker.com/feed/everything",
+      "region": "north-america",
+      "country": "US",
+      "lang": "en",
+      "longform": true,
+      "categories": ["culture", "politics", "society", "investigative"]
+    },
+    {
+      "name": "The Atlantic",
+      "id": "the-atlantic",
+      "url": "https://www.theatlantic.com/feed/all/",
+      "region": "north-america",
+      "country": "US",
+      "lang": "en",
+      "longform": true,
+      "categories": ["culture", "politics", "society", "science"]
+    },
+    {
+      "name": "Granta",
+      "id": "granta",
+      "url": "https://granta.com/feed/",
+      "region": "europe",
+      "country": "UK",
+      "lang": "en",
+      "longform": true,
+      "categories": ["culture", "literature", "society"]
+    },
+    {
+      "name": "The Economist",
+      "id": "the-economist",
+      "url": "https://www.economist.com/international/rss.xml",
+      "region": "europe",
+      "country": "UK",
+      "lang": "en",
+      "longform": false,
+      "conservative": true,
+      "categories": ["politics", "economics", "international"]
+    },
+    {
+      "name": "南风窗",
+      "id": "nanfengchuang",
+      "url": "https://www.nfcmag.com/rss.xml",
+      "region": "east-asia",
+      "country": "China",
+      "lang": "zh",
+      "longform": true,
+      "categories": ["politics", "society", "investigative"]
     }
   ]
 }

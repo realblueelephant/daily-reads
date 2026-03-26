@@ -19,6 +19,27 @@ const sources = JSON.parse(
   readFileSync(join(__dirname, 'sources.json'), 'utf-8')
 ).sources;
 
+// Time windows
+const LONGFORM_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
+const NEWS_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+
+// Seen-links: persistent dedup across all days
+const seenLinksFile = join(__dirname, '..', 'data', 'seen-links.json');
+
+function loadSeenLinks() {
+  if (!existsSync(seenLinksFile)) return new Set();
+  try {
+    const data = JSON.parse(readFileSync(seenLinksFile, 'utf-8'));
+    return new Set(Array.isArray(data) ? data : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveSeenLinks(seenSet) {
+  writeFileSync(seenLinksFile, JSON.stringify([...seenSet], null, 2), 'utf-8');
+}
+
 /**
  * Fetch articles from all RSS sources
  */
@@ -30,7 +51,7 @@ async function fetchAllFeeds() {
     sources.map(async (source) => {
       try {
         const feed = await parser.parseURL(source.url);
-        const articles = (feed.items || []).slice(0, 5).map((item) => ({
+        const articles = (feed.items || []).slice(0, 10).map((item) => ({
           title: item.title || '',
           link: item.link || '',
           description: item.contentSnippet || item.content || '',
@@ -39,6 +60,9 @@ async function fetchAllFeeds() {
           sourceId: source.id,
           region: source.region,
           country: source.country,
+          lang: source.lang || 'en',
+          longform: source.longform || false,
+          conservative: source.conservative || false,
           categories: source.categories,
         }));
         return articles;
@@ -60,28 +84,34 @@ async function fetchAllFeeds() {
 }
 
 /**
- * Filter: recent articles (within 3 days), with valid links
+ * Filter by recency: longform sources get 30-day window, news gets 7-day window.
+ * Also filter out already-seen links.
  */
-function filterRecent(articles) {
-  const threeDaysAgo = Date.now() - 3 * 24 * 60 * 60 * 1000;
+function filterArticles(articles, seenLinks) {
+  const now = Date.now();
   return articles.filter((a) => {
     if (!a.link || !a.title) return false;
+    if (seenLinks.has(a.link)) return false;
+
     if (a.pubDate) {
       const d = new Date(a.pubDate).getTime();
-      if (!isNaN(d) && d < threeDaysAgo) return false;
+      if (!isNaN(d)) {
+        const window = a.longform ? LONGFORM_WINDOW_MS : NEWS_WINDOW_MS;
+        if (d < now - window) return false;
+      }
     }
     return true;
   });
 }
 
 /**
- * Select 7 articles ensuring source diversity + investigative weight
- * - At least 2 slots for investigative/long-form sources
- * - No two articles from the same source
- * - Maximize region diversity
+ * Select 7 articles with slot guarantees:
+ *   - 2 slots: longform/depth (New Yorker, Atlantic, Guardian Long Read, Granta, Aeon, 南风窗)
+ *   - 1 slot: conservative perspective (The Economist)
+ *   - 4 slots: diverse investigative/international, maximize region diversity, no source repeat
  */
 function selectArticles(articles) {
-  const shuffled = articles.sort(() => Math.random() - 0.5);
+  const shuffled = [...articles].sort(() => Math.random() - 0.5);
 
   const INVESTIGATIVE_SOURCES = new Set([
     'propublica', 'guardian-longread', 'intercept', 'reuters',
@@ -102,19 +132,29 @@ function selectArticles(articles) {
   const usedSources = new Set();
   const usedRegions = new Set();
 
-  // First pass: pick top 2 investigative pieces
+  // Slot 1-2: longform depth pieces
   for (const article of scored) {
     if (selected.length >= 2) break;
-    if (article.score >= 2) {
+    if (article.longform && !usedSources.has(article.sourceId)) {
       selected.push(article);
       usedSources.add(article.sourceId);
       usedRegions.add(article.region);
     }
   }
 
-  // Second pass: maximize region diversity
+  // Slot 3: conservative perspective
   for (const article of scored) {
-    if (selected.length >= 7) break;
+    if (selected.length >= 3) break;
+    if (article.conservative && !usedSources.has(article.sourceId)) {
+      selected.push(article);
+      usedSources.add(article.sourceId);
+      usedRegions.add(article.region);
+    }
+  }
+
+  // Slot 4-5: maximize region diversity
+  for (const article of scored) {
+    if (selected.length >= 5) break;
     if (usedSources.has(article.sourceId)) continue;
     if (!usedRegions.has(article.region)) {
       selected.push(article);
@@ -123,7 +163,7 @@ function selectArticles(articles) {
     }
   }
 
-  // Third pass: fill remaining slots
+  // Slot 6-7: fill remaining
   for (const article of scored) {
     if (selected.length >= 7) break;
     if (usedSources.has(article.sourceId)) continue;
@@ -168,7 +208,7 @@ async function extractArticle(url) {
 /**
  * Generate Chinese summary using DeepSeek API (OpenAI-compatible)
  */
-async function generateSummary(title, content, sourceName) {
+async function generateSummary(title, content, sourceName, lang) {
   const apiKey = process.env.AI_API_KEY;
   const baseUrl = process.env.AI_BASE_URL || 'https://api.deepseek.com';
   const model = process.env.AI_MODEL || 'deepseek-chat';
@@ -184,16 +224,16 @@ async function generateSummary(title, content, sourceName) {
     baseURL: baseUrl.endsWith('/v1') ? baseUrl : `${baseUrl}/v1`,
   });
 
+  const systemPrompt = lang === 'zh'
+    ? '你是一位资深编辑。请将以下报道用中文总结为3段：第一段用一句话说明核心事件或论点；第二段展开关键细节和背景；第三段点出这篇报道的独特价值或启发。总字数控制在200-300字。语言要简洁有力。'
+    : '你是一位资深新闻编辑。请将以下英文报道用中文总结为3段：第一段用一句话说明核心事件或论点；第二段展开关键细节和背景；第三段点出这篇报道的独特价值或启发。总字数控制在200-300字。语言要简洁有力，不要翻译腔。';
+
   try {
     const response = await withTimeout(
       client.chat.completions.create({
         model,
         messages: [
-          {
-            role: 'system',
-            content:
-              '你是一位资深新闻编辑。请将以下英文报道用中文总结为3段：第一段用一句话说明核心事件或论点；第二段展开关键细节和背景；第三段点出这篇报道的独特价值或启发。总字数控制在200-300字。语言要简洁有力，不要翻译腔。',
-          },
+          { role: 'system', content: systemPrompt },
           {
             role: 'user',
             content: `来源: ${sourceName}\n标题: ${title}\n\n正文:\n${content}`,
@@ -219,23 +259,23 @@ async function main() {
   console.log('=== Daily Reads - Fetching ===');
   console.log(new Date().toISOString());
 
-  // Skip if today's data already exists
   const today = new Date().toISOString().slice(0, 10);
-  const todayFile = join(__dirname, '..', 'data', `${today}.json`);
-  if (existsSync(todayFile)) {
-    console.log(`Today's data (${today}) already exists, skipping.`);
-    return;
-  }
+  const dataDir = join(__dirname, '..', 'data');
+  if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
+
+  // Load seen links for dedup
+  const seenLinks = loadSeenLinks();
+  console.log(`Loaded ${seenLinks.size} seen links for dedup`);
 
   // 1. Fetch all feeds
   const allArticles = await fetchAllFeeds();
 
-  // 2. Filter recent
-  const recent = filterRecent(allArticles);
-  console.log(`${recent.length} recent articles after filtering`);
+  // 2. Filter by recency + dedup
+  const filtered = filterArticles(allArticles, seenLinks);
+  console.log(`${filtered.length} articles after recency + dedup filter`);
 
-  // 3. Select 3
-  const selected = selectArticles(recent);
+  // 3. Select 7
+  const selected = selectArticles(filtered);
   console.log(
     `Selected: ${selected.map((a) => `[${a.sourceName}] ${a.title}`).join('\n          ')}`
   );
@@ -252,7 +292,8 @@ async function main() {
       summary = await generateSummary(
         article.title,
         contentForSummary,
-        article.sourceName
+        article.sourceName,
+        article.lang
       );
     }
 
@@ -263,6 +304,8 @@ async function main() {
       sourceId: article.sourceId,
       region: article.region,
       country: article.country,
+      lang: article.lang,
+      longform: article.longform,
       pubDate: article.pubDate,
       description: article.description.slice(0, 500),
       summary: summary || '（摘要生成中，请点击阅读原文）',
@@ -270,23 +313,24 @@ async function main() {
     });
   }
 
-  // 5. Write output
-  const dataDir = join(__dirname, '..', 'data');
-  if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
+  // 5. Update seen-links
+  for (const article of output) {
+    seenLinks.add(article.link);
+  }
+  saveSeenLinks(seenLinks);
+
+  // 6. Write output
   const outputData = {
     date: today,
     articles: output,
     generatedAt: new Date().toISOString(),
   };
 
-  // Write as latest.json (for the frontend)
   writeFileSync(
     join(dataDir, 'latest.json'),
     JSON.stringify(outputData, null, 2),
     'utf-8'
   );
-
-  // Also archive by date
   writeFileSync(
     join(dataDir, `${today}.json`),
     JSON.stringify(outputData, null, 2),

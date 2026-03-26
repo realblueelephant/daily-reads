@@ -48,7 +48,7 @@ async function loadArticles() {
   const dateEl = document.getElementById('date');
 
   try {
-    const res = await fetch('data/latest.json');
+    const res = await fetch(`data/latest.json?t=${Date.now()}`, { cache: 'no-store' });
     if (!res.ok) throw new Error('No data');
     const data = await res.json();
 
