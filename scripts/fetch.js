@@ -263,6 +263,13 @@ async function main() {
   const dataDir = join(__dirname, '..', 'data');
   if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
 
+  // Skip if today's data already exists (multi-cron retry guard)
+  const todayFile = join(dataDir, `${today}.json`);
+  if (existsSync(todayFile)) {
+    console.log(`Today's data (${today}) already exists, skipping.`);
+    return;
+  }
+
   // Load seen links for dedup
   const seenLinks = loadSeenLinks();
   console.log(`Loaded ${seenLinks.size} seen links for dedup`);
