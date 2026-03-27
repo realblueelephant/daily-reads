@@ -2,10 +2,10 @@ name: Daily Fetch
 
 on:
   schedule:
-    - cron: '3 1 * * *'    # 09:03 Beijing time (primary)
-    - cron: '17 4 * * *'   # 12:17 Beijing time (retry 1)
-    - cron: '41 7 * * *'   # 15:41 Beijing time (retry 2)
-    - cron: '29 10 * * *'  # 18:29 Beijing time (retry 3)
+    - cron: '7 17 * * *'    # 01:07 Beijing time (primary)
+    - cron: '23 19 * * *'   # 03:23 Beijing time (retry 1)
+    - cron: '41 21 * * *'   # 05:41 Beijing time (retry 2)
+    - cron: '13 0 * * *'    # 08:13 Beijing time (retry 3)
   workflow_dispatch:
 
 permissions:

@@ -259,7 +259,10 @@ async function main() {
   console.log('=== Daily Reads - Fetching ===');
   console.log(new Date().toISOString());
 
-  const today = new Date().toISOString().slice(0, 10);
+  // Use Beijing time (UTC+8) for date so cron runs between 00:00-09:00 BJT produce correct date
+  const now = new Date();
+  const beijingMs = now.getTime() + 8 * 60 * 60 * 1000;
+  const today = new Date(beijingMs).toISOString().slice(0, 10);
   const dataDir = join(__dirname, '..', 'data');
   if (!existsSync(dataDir)) mkdirSync(dataDir, { recursive: true });
 
