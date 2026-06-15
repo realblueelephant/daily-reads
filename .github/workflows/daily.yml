@@ -8,20 +8,28 @@ on:
     - cron: '13 0 * * *'    # 08:13 Beijing time (retry 3)
   workflow_dispatch:
 
+# cancel-in-progress: true so a newer run supersedes a stuck/old one instead of
+# piling up behind it. The previous setting (false) + the github-pages deploy
+# hanging on its environment caused every run since ~2026-05-30 to be cancelled
+# with "a higher priority waiting request exists", so nothing ever committed.
 concurrency:
   group: daily-fetch
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  # Job 1: fetch + commit. This is the part that MUST run every day.
-  # It has no environment binding, so nothing here can be blocked by
-  # GitHub Pages environment protection rules.
+  # Single job: fetch + commit + push. No `environment:` binding, so nothing
+  # here can hang waiting on GitHub Pages environment protection rules.
+  #
+  # Site deployment is handled automatically by GitHub's branch-based Pages
+  # (the "pages-build-deployment" workflow), which redeploys whenever this job
+  # pushes to main. The old actions/deploy-pages job was removed because it was
+  # redundant with branch-based Pages and was the step that stalled the run.
+  # NOTE: if the live site ever stops updating after a push, check
+  # Settings -> Pages: the source should be "Deploy from a branch" (main).
   fetch:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    outputs:
-      changed: ${{ steps.commit.outputs.changed }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,52 +48,18 @@ jobs:
         run: node scripts/fetch.js
 
       - name: Commit and push
-        id: commit
         run: |
           git config user.name "daily-reads-bot"
           git config user.email "bot@daily-reads"
           git add data/ public/data/
           if git diff --staged --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "No changes to commit."
           else
             git commit -m "update: $(date +%Y-%m-%d) daily articles"
             git push
-            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       # Keepalive: GitHub auto-disables scheduled workflows after 60 days with
-      # no repository activity, and commits pushed by GITHUB_TOKEN do not
-      # reliably count. This re-commits the workflow file periodically so the
-      # schedule is never suspended.
+      # no repository activity. This keeps the schedule from being suspended.
       - name: Keepalive
         uses: gautamkrishnar/keepalive-workflow@v2
-
-  # Job 2: deploy to GitHub Pages. Runs after fetch. If this fails (e.g. Pages
-  # source not set to "GitHub Actions"), the daily commit above is already done,
-  # so the site still updates via branch-based Pages.
-  deploy:
-    needs: fetch
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
