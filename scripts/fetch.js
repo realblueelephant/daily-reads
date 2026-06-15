@@ -23,6 +23,14 @@ const sources = JSON.parse(
 const LONGFORM_WINDOW_MS = 30 * 24 * 60 * 60 * 1000;
 const NEWS_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
+// How many articles to publish per day
+const TARGET_COUNT = 7;
+// Minimum extracted body length (chars) to consider an article usable.
+// Paywalled pages and broken extractions return only a teaser; summarizing
+// that produces vague, padded text. Below this threshold we skip the article
+// instead of feeding a stub to the summarizer.
+const MIN_CONTENT_CHARS = 800;
+
 // Seen-links: persistent dedup across all days
 const seenLinksFile = join(__dirname, '..', 'data', 'seen-links.json');
 
@@ -105,73 +113,50 @@ function filterArticles(articles, seenLinks) {
 }
 
 /**
- * Select 7 articles with slot guarantees:
- *   - 2 slots: longform/depth (New Yorker, Atlantic, Guardian Long Read, Granta, Aeon, 南风窗)
- *   - 1 slot: conservative perspective (The Economist)
- *   - 4 slots: diverse investigative/international, maximize region diversity, no source repeat
+ * Rank all candidate articles into a priority-ordered list.
+ *
+ * We no longer hard-cap at 7 here, because extraction may fail for some
+ * articles (thin content gets skipped downstream). Instead we return a fully
+ * ordered candidate pool and let the main loop pick the first TARGET_COUNT
+ * that pass the content gate, while keeping source/region diversity.
+ *
+ * Ordering favours: longform depth pieces, then investigative reporting, then
+ * region diversity, with light randomization so the daily mix stays fresh.
  */
 function selectArticles(articles) {
   const shuffled = [...articles].sort(() => Math.random() - 0.5);
 
   const INVESTIGATIVE_SOURCES = new Set([
-    'propublica', 'guardian-longread', 'intercept', 'reuters',
+    'propublica', 'guardian-longread', 'intercept', 'undark',
     'daily-maverick', 'the-wire',
   ]);
 
   const scored = shuffled.map((a) => ({
     ...a,
     score:
+      (a.longform ? 4 : 0) +
       (INVESTIGATIVE_SOURCES.has(a.sourceId) ? 3 : 0) +
       (a.categories?.includes('investigative') ? 2 : 0) +
       (a.description?.length > 200 ? 1 : 0),
   }));
 
+  // Primary order by score; ties broken randomly.
   scored.sort((a, b) => b.score - a.score || Math.random() - 0.5);
 
-  const selected = [];
-  const usedSources = new Set();
-  const usedRegions = new Set();
-
-  // Slot 1-2: longform depth pieces
-  for (const article of scored) {
-    if (selected.length >= 2) break;
-    if (article.longform && !usedSources.has(article.sourceId)) {
-      selected.push(article);
-      usedSources.add(article.sourceId);
-      usedRegions.add(article.region);
+  // Interleave to spread regions out near the top so the first picks aren't
+  // all from one continent, without dropping any candidate.
+  const ordered = [];
+  const seenRegionOnce = new Set();
+  const rest = [];
+  for (const a of scored) {
+    if (!seenRegionOnce.has(a.region)) {
+      ordered.push(a);
+      seenRegionOnce.add(a.region);
+    } else {
+      rest.push(a);
     }
   }
-
-  // Slot 3: conservative perspective
-  for (const article of scored) {
-    if (selected.length >= 3) break;
-    if (article.conservative && !usedSources.has(article.sourceId)) {
-      selected.push(article);
-      usedSources.add(article.sourceId);
-      usedRegions.add(article.region);
-    }
-  }
-
-  // Slot 4-5: maximize region diversity
-  for (const article of scored) {
-    if (selected.length >= 5) break;
-    if (usedSources.has(article.sourceId)) continue;
-    if (!usedRegions.has(article.region)) {
-      selected.push(article);
-      usedSources.add(article.sourceId);
-      usedRegions.add(article.region);
-    }
-  }
-
-  // Slot 6-7: fill remaining
-  for (const article of scored) {
-    if (selected.length >= 7) break;
-    if (usedSources.has(article.sourceId)) continue;
-    selected.push(article);
-    usedSources.add(article.sourceId);
-  }
-
-  return selected;
+  return [...ordered, ...rest];
 }
 
 /**
@@ -284,27 +269,42 @@ async function main() {
   const filtered = filterArticles(allArticles, seenLinks);
   console.log(`${filtered.length} articles after recency + dedup filter`);
 
-  // 3. Select 7
-  const selected = selectArticles(filtered);
-  console.log(
-    `Selected: ${selected.map((a) => `[${a.sourceName}] ${a.title}`).join('\n          ')}`
-  );
+  // 3. Rank candidates (more than we need, so we can skip unusable ones)
+  const candidates = selectArticles(filtered);
+  console.log(`${candidates.length} ranked candidates`);
 
-  // 4. Extract full text and generate summaries
+  // 4. Walk candidates: extract full text, gate on length, summarize.
+  //    Keep going until we have TARGET_COUNT usable articles, one per source.
   const output = [];
-  for (const article of selected) {
-    console.log(`Processing: ${article.title}`);
-    const fullText = await extractArticle(article.link);
-    const contentForSummary = fullText || article.description;
+  const usedSources = new Set();
+  for (const article of candidates) {
+    if (output.length >= TARGET_COUNT) break;
+    if (usedSources.has(article.sourceId)) continue;
 
-    let summary = null;
-    if (contentForSummary) {
-      summary = await generateSummary(
-        article.title,
-        contentForSummary,
-        article.sourceName,
-        article.lang
+    console.log(`Trying: [${article.sourceName}] ${article.title}`);
+    const fullText = await extractArticle(article.link);
+
+    // Quality gate: skip paywalled/broken pages that yield only a teaser.
+    if (!fullText || fullText.length < MIN_CONTENT_CHARS) {
+      console.warn(
+        `  skipped — thin content (${fullText ? fullText.length : 0} chars < ${MIN_CONTENT_CHARS})`
       );
+      continue;
+    }
+
+    const summary = await generateSummary(
+      article.title,
+      fullText,
+      article.sourceName,
+      article.lang
+    );
+
+    // If the API key is configured, a null summary means the call failed —
+    // skip rather than publish a placeholder. Without a key (local dry runs),
+    // fall back to a placeholder so the pipeline still produces output.
+    if (!summary && process.env.AI_API_KEY) {
+      console.warn('  skipped — summary generation failed');
+      continue;
     }
 
     output.push({
@@ -321,6 +321,22 @@ async function main() {
       summary: summary || '（摘要生成中，请点击阅读原文）',
       fetchedAt: new Date().toISOString(),
     });
+    usedSources.add(article.sourceId);
+    console.log(`  kept (${output.length}/${TARGET_COUNT})`);
+  }
+
+  if (output.length < TARGET_COUNT) {
+    console.warn(
+      `Only ${output.length}/${TARGET_COUNT} articles passed the content gate today.`
+    );
+  }
+
+  // Guard: never overwrite the live site with an empty day. If nothing passed
+  // the gate (e.g. extraction service down), bail without writing so the
+  // previous day's content stays up.
+  if (output.length === 0) {
+    console.error('No usable articles today — leaving existing data untouched.');
+    process.exit(1);
   }
 
   // 5. Update seen-links
@@ -360,11 +376,12 @@ async function main() {
   console.log(`\nDone! Saved ${output.length} articles for ${today}`);
 }
 
-// Global timeout: force exit after 5 minutes
+// Global timeout: force exit after 8 minutes. Raised from 5min because we now
+// may attempt extraction on extra candidates when some fail the content gate.
 setTimeout(() => {
-  console.error('Global timeout reached (5min), force exiting');
+  console.error('Global timeout reached (8min), force exiting');
   process.exit(1);
-}, 5 * 60 * 1000).unref();
+}, 8 * 60 * 1000).unref();
 
 main()
   .then(() => process.exit(0))

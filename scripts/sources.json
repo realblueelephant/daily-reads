@@ -1,4 +1,5 @@
 {
+  "_note": "All sources here are free and allow full-text extraction. Hard-paywalled sources (New Yorker, The Atlantic, The Economist) and dead feeds (Reuters Investigates, 南风窗) were removed on 2026-06-15 because the extractor could only retrieve teaser text, producing low-quality summaries. fetch.js now skips any article whose extracted body is shorter than MIN_CONTENT_CHARS, so add new sources freely but verify they expose full text in their RSS/HTML.",
   "sources": [
     {
       "name": "The Guardian Long Read",
@@ -141,36 +142,6 @@
       "categories": ["politics", "society", "international"]
     },
     {
-      "name": "Reuters Investigates",
-      "id": "reuters",
-      "url": "https://www.reuters.com/arc/outboundfeeds/newsletter-rss/investigates/",
-      "region": "global",
-      "country": "Global",
-      "lang": "en",
-      "longform": false,
-      "categories": ["investigative", "politics", "international"]
-    },
-    {
-      "name": "The New Yorker",
-      "id": "new-yorker",
-      "url": "https://www.newyorker.com/feed/everything",
-      "region": "north-america",
-      "country": "US",
-      "lang": "en",
-      "longform": true,
-      "categories": ["culture", "politics", "society", "investigative"]
-    },
-    {
-      "name": "The Atlantic",
-      "id": "the-atlantic",
-      "url": "https://www.theatlantic.com/feed/all/",
-      "region": "north-america",
-      "country": "US",
-      "lang": "en",
-      "longform": true,
-      "categories": ["culture", "politics", "society", "science"]
-    },
-    {
       "name": "Granta",
       "id": "granta",
       "url": "https://granta.com/feed/",
@@ -181,25 +152,54 @@
       "categories": ["culture", "literature", "society"]
     },
     {
-      "name": "The Economist",
-      "id": "the-economist",
-      "url": "https://www.economist.com/international/rss.xml",
-      "region": "europe",
-      "country": "UK",
+      "name": "Noema Magazine",
+      "id": "noema",
+      "url": "https://www.noemamag.com/feed/",
+      "region": "global",
+      "country": "US",
       "lang": "en",
-      "longform": false,
-      "conservative": true,
-      "categories": ["politics", "economics", "international"]
+      "longform": true,
+      "categories": ["politics", "philosophy", "tech", "society"]
     },
     {
-      "name": "南风窗",
-      "id": "nanfengchuang",
-      "url": "https://www.nfcmag.com/rss.xml",
-      "region": "east-asia",
-      "country": "China",
-      "lang": "zh",
+      "name": "Quanta Magazine",
+      "id": "quanta",
+      "url": "https://www.quantamagazine.org/feed/",
+      "region": "global",
+      "country": "US",
+      "lang": "en",
       "longform": true,
-      "categories": ["politics", "society", "investigative"]
+      "categories": ["science", "math", "tech"]
+    },
+    {
+      "name": "Nautilus",
+      "id": "nautilus",
+      "url": "https://nautil.us/feed/",
+      "region": "global",
+      "country": "US",
+      "lang": "en",
+      "longform": true,
+      "categories": ["science", "culture", "philosophy"]
+    },
+    {
+      "name": "Undark",
+      "id": "undark",
+      "url": "https://undark.org/feed/",
+      "region": "global",
+      "country": "US",
+      "lang": "en",
+      "longform": false,
+      "categories": ["science", "investigative", "society"]
+    },
+    {
+      "name": "BBC 中文",
+      "id": "bbc-zhongwen",
+      "url": "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml",
+      "region": "east-asia",
+      "country": "Global/China",
+      "lang": "zh",
+      "longform": false,
+      "categories": ["politics", "society", "international"]
     }
   ]
 }
